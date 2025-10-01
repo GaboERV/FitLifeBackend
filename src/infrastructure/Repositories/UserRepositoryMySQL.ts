@@ -48,13 +48,7 @@ export class UserRepositoryMySQL implements UserRepository {
     }
 
     async saveUser(user: User): Promise<void> {
-        if (user.id == 0) {
-            // Update existing user
-            await this.pool.query(
-                'UPDATE user SET nombre = ?, contrasena = ?, correo = ?, pesoKg = ?, edad = ?, esturaMetros = ? WHERE id = ?',
-                [user.nombre, user.contrasena, user.correo, user.pesoKg, user.edad, user.estaturaMetros, user.id]
-            );
-        } else {
+        if (user.id === 0) {
             // Insert new user
             const [result] = await this.pool.query(
                 'INSERT INTO user (nombre, contrasena, correo, pesoKg, edad, esturaMetros) VALUES (?, ?, ?, ?, ?, ?)',
@@ -62,6 +56,12 @@ export class UserRepositoryMySQL implements UserRepository {
             ) as any;
             
             user.id = result.insertId;
+        } else {
+            // Update existing user
+            await this.pool.query(
+                'UPDATE user SET nombre = ?, contrasena = ?, correo = ?, pesoKg = ?, edad = ?, esturaMetros = ? WHERE id = ?',
+                [user.nombre, user.contrasena, user.correo, user.pesoKg, user.edad, user.estaturaMetros, user.id]
+            );
         }
     }
 

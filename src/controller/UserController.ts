@@ -20,7 +20,7 @@ export class UserController {
             const { nombre, contrasena, correo, pesoKg, edad, estaturaMetros } = req.body;
 
             // Validaciones básicas
-            if (!nombre || !contrasena || !correo) {
+            if (!nombre || !contrasena || !correo ) {
                 res.status(400).json({
                     success: false,
                     error: 'Nombre, contraseña y correo son requeridos'
