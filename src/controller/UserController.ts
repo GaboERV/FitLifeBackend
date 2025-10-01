@@ -20,7 +20,7 @@ export class UserController {
             const { nombre, contrasena, correo, pesoKg, edad, estaturaMetros } = req.body;
 
             // Validaciones básicas
-            if (!nombre || !contrasena || !correo ) {
+            if (!nombre || !contrasena || !correo) {
                 res.status(400).json({
                     success: false,
                     error: 'Nombre, contraseña y correo son requeridos'
@@ -45,7 +45,7 @@ export class UserController {
             console.error('Error al crear usuario:', error);
             res.status(500).json({
                 success: false,
-                error: 'Error interno del servidor'
+                error: `Error interno del servidor: ${error}`
             });
         }
     };
@@ -56,7 +56,7 @@ export class UserController {
             const id = parseInt(req.params.id);
             const { nombre, contrasena, correo, pesoKg, edad, estaturaMetros } = req.body;
 
-            const updateUser: UpdateUserDto = { id, nombre, pesoKg ,contrasena, correo, edad, estaturaMetros }
+            const updateUser: UpdateUserDto = { id, nombre, pesoKg, contrasena, correo, edad, estaturaMetros }
             if (isNaN(id)) {
                 res.status(400).json({
                     success: false,
@@ -81,7 +81,7 @@ export class UserController {
             } else {
                 res.status(500).json({
                     success: false,
-                    error: 'Error interno del servidor'
+                    error: `Error interno del servidor: ${error}`
                 });
             }
         }
@@ -118,7 +118,7 @@ export class UserController {
             } else {
                 res.status(500).json({
                     success: false,
-                    error: 'Error interno del servidor'
+                    error: `Error interno del servidor: ${error}`
                 });
             }
         }
@@ -129,9 +129,9 @@ export class UserController {
             const id = parseInt(req.params.id);
 
             if (isNaN(id)) {
-                res.status(400).json({ 
+                res.status(400).json({
                     success: false,
-                    error: 'ID inválido' 
+                    error: 'ID inválido'
                 });
                 return;
             }
@@ -145,14 +145,14 @@ export class UserController {
         } catch (error) {
             console.error('Error al obtener usuario:', error);
             if (error instanceof Error && error.message.includes('no encontrado')) {
-                res.status(404).json({ 
+                res.status(404).json({
                     success: false,
-                    error: 'Usuario no encontrado' 
+                    error: 'Usuario no encontrado'
                 });
             } else {
-                res.status(500).json({ 
+                res.status(500).json({
                     success: false,
-                    error: 'Error interno del servidor' 
+                    error: `Error interno del servidor: ${error}`
                 });
             }
         }

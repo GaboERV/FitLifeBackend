@@ -34,7 +34,7 @@ export class UserDependencyFactory {
     }
     
     createUserUseCase(): CreateUserCase {
-        return new CreateUserCase(this.emailValidator, this.userRepository);
+        return new CreateUserCase(this.emailValidator, this.userRepository, this.encryptService);
     }
     
     deleteUserUseCase(): DeleteUserCase {

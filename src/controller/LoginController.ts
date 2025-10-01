@@ -12,23 +12,23 @@ export class LoginController {
             const { contrasena, correo } = req.body;
 
             // Validaciones básicas
-            if (!!contrasena || !correo) {
+            if (!contrasena || !correo) {
                 res.status(400).json({
                     success: false,
-                    error: 'contraseña y correo son requeridos'
+                    error: 'Contraseña y correo son requeridos'
                 });
                 return;
             }
 
-            const payload = await this.loginCase.execute(correo,contrasena);
+            const payload = await this.loginCase.execute(correo, contrasena);
 
-            res.status(201).json(payload);
+            res.status(200).json(payload);
 
         } catch (error) {
-            console.error('Error al crear usuario:', error);
+            console.error('Error en login:', error);
             res.status(500).json({
                 success: false,
-                error: 'Error interno del servidor'
+                error: `Error interno del servidor: ${error}`
             });
         }
     };
