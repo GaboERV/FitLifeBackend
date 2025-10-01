@@ -56,7 +56,7 @@ export class UserController {
             const id = parseInt(req.params.id);
             const { nombre, contrasena, correo, pesoKg, edad, estaturaMetros } = req.body;
 
-            const updateUser: UpdateUserDto = { id, nombre, contrasena, correo, edad, estaturaMetros }
+            const updateUser: UpdateUserDto = { id, nombre, pesoKg ,contrasena, correo, edad, estaturaMetros }
             if (isNaN(id)) {
                 res.status(400).json({
                     success: false,
