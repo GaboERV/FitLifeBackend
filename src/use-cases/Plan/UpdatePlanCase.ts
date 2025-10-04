@@ -13,6 +13,6 @@ export class UpdatePlanCase {
         if (!plan) throw new Error('Plan no encontrado')
         if (nombre) plan.nombre = nombre
         if (descripcion) plan.descripcion = descripcion
-        await this.planRepository.updatePlan(plan)
+        await this.planRepository.savePlan(plan)
     }
 }

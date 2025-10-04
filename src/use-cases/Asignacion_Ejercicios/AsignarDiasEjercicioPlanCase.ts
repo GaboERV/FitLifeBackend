@@ -7,7 +7,7 @@ export class AsignarDiasEjercicioPlanCase {
     ) { }
 
     async excute(planId: number, Dias: Date[]): Promise<void> {
-        const plan: PlanEjercicioSimple = await this.planRepository.getPlanSimpleById(planId)
+        const plan = await this.planRepository.getPlanSimpleById(planId)
         if (!plan) throw new Error('Plan no encontrado');
 
         for (const dia of Dias) {

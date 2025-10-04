@@ -14,6 +14,6 @@ export class CreatePlanCase {
         const user = await this.userRepository.getUserById(userId);
         if (!user) throw new Error('Usuario no encontrado');
         const newPlan = new PlanEjercicioSimple(descripcion, nombre,userId);
-        await this.planRepository.createPlan(newPlan);
+        await this.planRepository.savePlan(newPlan);
     }
 }

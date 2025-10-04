@@ -1,1 +1,0 @@
-{"version":3,"file":"PlanEjercicio.js","sourceRoot":"","sources":["../../../src/dominio/entities/PlanEjercicio.ts"],"names":[],"mappings":";;;AACA,2DAAwD;AAExD,MAAa,aAAc,SAAQ,qCAAiB;IAChD,YACI,MAAc,EACd,WAAmB,EACnB,MAAa,EACN,EAAU,EACV,aAAiC;QAExC,KAAK,CAAC,MAAM,EAAC,WAAW,EAAC,MAAM,CAAC,CAAA;QAHzB,OAAE,GAAF,EAAE,CAAQ;QACV,kBAAa,GAAb,aAAa,CAAoB;IAG5C,CAAC;CACJ;AAVD,sCAUC"}

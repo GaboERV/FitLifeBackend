@@ -3,8 +3,8 @@ dotenv.config();
 
 import express from 'express';
 import cors from 'cors';
-import routerLogin from './Router/LoginRoutes';
-import routerUser from './Router/UserRoutes';
+import routerLogin from './infrastructure/Router/LoginRoutes';
+import routerUser from './infrastructure/Router/UserRoutes';
 
 const app = express();
 

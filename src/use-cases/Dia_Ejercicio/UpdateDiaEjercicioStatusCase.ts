@@ -9,7 +9,7 @@ class UpdateDiaEjerciosCase {
     ) { }
 
     async execute(updateDiaEjerciosDTO: DiaPlanResponseDTO) {
-        const diaEjercicio: DiaPlanEjercicio = await this.planRepository.getDiaPlanById(updateDiaEjerciosDTO.id)
+        const diaEjercicio = await this.planRepository.getDiaPlanById(updateDiaEjerciosDTO.id)
         if (!diaEjercicio) throw new Error('Dia de ejercicio no encontrado');
         const updateDia = DiaPlanMapper.toDomain(updateDiaEjerciosDTO)
         await this.planRepository.updateDiaPlan(updateDia)

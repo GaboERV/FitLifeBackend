@@ -5,7 +5,7 @@ export interface PlanEjercicioResponseDTO {
     descripcion: string;
     dias: {
         id: number;
-        dia: string;
+        dia: Date
         ejercicios: {
             id: number;
             nombre: string;

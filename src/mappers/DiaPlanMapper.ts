@@ -23,10 +23,10 @@ export class DiaPlanMapper {
         const ejerciciosAsignados: EjercicioAsignado[] = diaPlanDTO.ejercicios.map(ejercicio => {
             return new EjercicioAsignado(
                 ejercicio.id,
-                ejercicio.nombre,
-                ejercicio.MET,
+                "", 
+                0,
                 ejercicio.completado,
-                ejercicio.duracionHoras
+                0
             )
         })
         return new DiaPlanEjercicio(diaPlanDTO.id, diaPlanDTO.dia, ejerciciosAsignados)

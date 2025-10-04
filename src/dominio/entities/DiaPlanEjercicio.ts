@@ -3,7 +3,7 @@ import { EjercicioAsignado } from "./EjercicioAsignado";
 export class DiaPlanEjercicio {
     constructor(
         public id: number,
-        public dia: string,
+        public dia: Date,
         public ejercicioAsignados: EjercicioAsignado[]
     ) { }
 
