@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import { CreateUserCase } from "../../use-cases/User/CreateUserCase";
-import { DeleteUserCase } from "../../use-cases/User/DeleteUserCase";
-import { UpdateUserCase } from "../../use-cases/User/UpdateUserCase";
-import { UpdateUserDto } from '../../dto/user/UpdateUser.dto';
-import { DeleteUserDto } from '../../dto/user/DeleteUser.dto';
-import { GetUserCase } from '../../use-cases/User/GetUserCase';
+import { CreateUserCase } from "../../app/use-cases/User/CreateUserCase";
+import { DeleteUserCase } from "../../app/use-cases/User/DeleteUserCase";
+import { UpdateUserCase } from "../../app/use-cases/User/UpdateUserCase";
+import { UpdateUserDto } from '../../app/dto/user/UpdateUser.dto';
+import { DeleteUserDto } from '../../app/dto/user/DeleteUser.dto';
+import { GetUserCase } from '../../app/use-cases/User/GetUserCase';
 
 export class UserController {
     constructor(

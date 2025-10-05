@@ -223,21 +223,26 @@ export class PlanRepositoryORMPrisma implements PlanRepository {
                     fecha: dia
                 }
             });
-            const ejerciciosAsignado = await this.prisma.ejercicioAsignadoPlan.findMany({
-                where: {
-                    planId
-                }
-            })
 
-            await this.prisma.diaEjercicioAsignado.createMany({
-                data: ejerciciosAsignado.map(e => ({
-                    EjercicioAsignadoId: e.id,
-                    diaPlanId: newFecha.id,
-                    completado: false
-                }))
-            })
+            const ejerciciosAsignado = await this.prisma.ejercicioAsignadoPlan.findMany({
+                where: { planId }
+            });
+
+            if (ejerciciosAsignado.length > 0) {
+                await this.prisma.diaEjercicioAsignado.createMany({
+                    data: ejerciciosAsignado.map(e => ({
+                        EjercicioAsignadoId: e.id,
+                        diaPlanId: newFecha.id,
+                        completado: false
+                    }))
+                });
+            }
         } catch (error) {
             if (error instanceof Prisma.PrismaClientKnownRequestError) {
+                if (error.code === 'P2002') {
+                    // Duplicado detectado, retornar sin hacer nada
+                    return;
+                }
                 if (error.code === 'P2003') {
                     throw new Error(`Plan con ID ${planId} no encontrado`);
                 }
@@ -245,6 +250,7 @@ export class PlanRepositoryORMPrisma implements PlanRepository {
             throw new Error('Falla en base de datos al agregar día al plan');
         }
     }
+
 
     async deleteDiaPlan(planId: number, dia: Date): Promise<void> {
         try {
@@ -336,8 +342,12 @@ export class PlanRepositoryORMPrisma implements PlanRepository {
             }
         } catch (error) {
             if (error instanceof Prisma.PrismaClientKnownRequestError) {
+                if (error.code === 'P2002') {
+                    // Duplicado detectado, retornar sin hacer nada
+                    return;
+                }
                 if (error.code === 'P2003') {
-                    throw new Error(`Plan o ejercicio no encontrado`);
+                    throw new Error('Plan o ejercicio no encontrado');
                 }
             }
             throw new Error('Falla en base de datos al agregar ejercicio al plan');

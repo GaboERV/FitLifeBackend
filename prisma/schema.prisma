@@ -20,6 +20,17 @@ model DiaEjercicioAsignado {
   @@index([EjercicioAsignadoId], map: "fk_diaejercicioasignado_ejercicioasignado")
 }
 
+model diasPlan {
+  id                   Int                    @id @default(autoincrement()) @db.UnsignedInt
+  fecha                DateTime               @db.Date
+  planId               Int                    @db.UnsignedInt
+  DiaEjercicioAsignado DiaEjercicioAsignado[]
+  plan                 plan                   @relation(fields: [planId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_diasplan_plan")
+
+  @@unique([planId, fecha], name: "unique_plan_fecha")
+  @@index([planId], map: "fk_diasplan_plan")
+}
+
 model EjercicioAsignadoPlan {
   id                   Int                    @id @default(autoincrement()) @db.UnsignedInt
   duracion             Decimal                @db.Decimal(5, 2)
@@ -29,18 +40,9 @@ model EjercicioAsignadoPlan {
   ejercicios           ejercicios             @relation(fields: [ejercicioId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_ejercicioasignadoplan_ejercicio")
   plan                 plan                   @relation(fields: [planId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_ejercicioasignadoplan_plan")
 
+  @@unique([planId, ejercicioId], name: "unique_plan_ejercicio")
   @@index([ejercicioId], map: "fk_ejercicioasignadoplan_ejercicio")
   @@index([planId], map: "fk_ejercicioasignadoplan_plan")
-}
-
-model diasPlan {
-  id                   Int                    @id @default(autoincrement()) @db.UnsignedInt
-  fecha                DateTime               @db.Date
-  planId               Int                    @db.UnsignedInt
-  DiaEjercicioAsignado DiaEjercicioAsignado[]
-  plan                 plan                   @relation(fields: [planId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_diasplan_plan")
-
-  @@index([planId], map: "fk_diasplan_plan")
 }
 
 model ejercicios {

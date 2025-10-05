@@ -1,16 +1,11 @@
 import { UserRepository } from "../../dominio/repositories/UserRepository";
 import { CorreoValidatorService } from "../../dominio/services/CorreoValidatorService";
 import { EncryptService } from "../../dominio/services/EncryptService";
-import pool from "../Repositories/connection";
-
-import { BcryptEncryptService } from "../Services/BycryptService";
-import { CorreoValidatorServiceManual } from "../Services/CorreoValidatorServiceManual";
-import { CreateUserCase } from "../../use-cases/User/CreateUserCase";
-import { DeleteUserCase } from "../../use-cases/User/DeleteUserCase";
-import { GetUserCase } from "../../use-cases/User/GetUserCase";
-import { UpdateUserCase } from "../../use-cases/User/UpdateUserCase";
-import prisma from "../Prisma/Prisma";
-import { UserRepositoryORMPrisma } from "../Repositories/UserRepositoryORMPrisma";
+import { CreateUserCase } from "../../app/use-cases/User/CreateUserCase";
+import { DeleteUserCase } from "../../app/use-cases/User/DeleteUserCase";
+import { GetUserCase } from "../../app/use-cases/User/GetUserCase";
+import { UpdateUserCase } from "../../app/use-cases/User/UpdateUserCase";
+import { emailValidatorSingleton, encryptServiceSingleton, userRepositorySingleton } from "./Dependency";
 
 export class UserDependencyFactory {
     private static instance: UserDependencyFactory;
@@ -24,9 +19,9 @@ export class UserDependencyFactory {
     static getInstance(): UserDependencyFactory {
         if (!UserDependencyFactory.instance) {
             UserDependencyFactory.instance = new UserDependencyFactory(
-                new UserRepositoryORMPrisma(prisma),
-                new BcryptEncryptService(10),
-                new CorreoValidatorServiceManual()
+                userRepositorySingleton,
+                encryptServiceSingleton,
+                emailValidatorSingleton
             );
         }
         return UserDependencyFactory.instance;

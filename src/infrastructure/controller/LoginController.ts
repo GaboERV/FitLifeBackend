@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { LoginCase } from "../../use-cases/sesion/LoginCase";
+import { LoginCase } from "../../app/use-cases/sesion/LoginCase";
 
 
 export class LoginController {

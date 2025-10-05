@@ -1,11 +1,8 @@
 import { UserRepository } from "../../dominio/repositories/UserRepository";
 import { EncryptService } from "../../dominio/services/EncryptService";
 import { TokenService } from "../../dominio/services/TokenService";
-import {  UserRepositoryORMPrisma } from "../Repositories/UserRepositoryORMPrisma";
-import { BcryptEncryptService } from "../Services/BycryptService";
-import { JwtTokenService } from "../Services/JsonWebTokenService";
-import { LoginCase } from "../../use-cases/sesion/LoginCase";
-import prisma from "../Prisma/Prisma";
+import { LoginCase } from "../../app/use-cases/sesion/LoginCase";
+import { encryptServiceSingleton, tokenServiceSingleton, userRepositorySingleton } from "./Dependency";
 export class LoginDependencyFactory {
     private static instance: LoginDependencyFactory
 
@@ -18,9 +15,9 @@ export class LoginDependencyFactory {
     static getInstance():LoginDependencyFactory{
         if(!LoginDependencyFactory.instance){
             LoginDependencyFactory.instance = new LoginDependencyFactory(
-                new UserRepositoryORMPrisma(prisma),
-                new BcryptEncryptService(10),
-                new JwtTokenService()
+               userRepositorySingleton,
+               encryptServiceSingleton,
+               tokenServiceSingleton
             )
         }
         return LoginDependencyFactory.instance
